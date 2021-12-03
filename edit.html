@@ -158,12 +158,12 @@
             <div class="flex mt-auto mx-auto gap-24 py-14">
                 <button id="" class="text-xl bg-green-400 rounded px-5 py-2 text-green-700 hover:bg-green-300">Pathfind</button>
                 <button id="showShortestPath" class="text-xl bg-green-400 rounded px-5 py-2 text-green-700 hover:bg-green-300">Show Path</button>
-                <a href="#edit" class="text-xl bg-green-400 rounded px-5 py-2 text-green-700 hover:bg-green-300">Edit</a>        
-                <button class="text-xl bg-green-400 rounded px-5 py-2 text-green-700 hover:bg-green-300">Save</button>        
+                <a href="#edit" class="text-xl bg-green-400 rounded px-5 py-2 text-green-700 hover:bg-green-300">Edit</a>
+                <a href="/view.html" class="text-xl bg-green-400 rounded px-5 py-2 text-green-700 hover:bg-green-300">Save</a> <!-- Should Save redirect to view screen?-->        
             </div>
         </div>
         
-        <canvas id="edit" class="bg-green-600"></canvas>
+        <canvas id="edit" class="bg-green-600 min-h-screen w-full"></canvas> <!-- Canvas have a h of screen. width of full makes it so its not creating a scrollbar.-->
     </div>
     <script src="/scripts/script.js"></script>
 </body>

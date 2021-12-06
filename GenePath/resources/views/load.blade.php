@@ -31,34 +31,37 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="">
-                    <div class="text-sm font-medium text-gray-900">
-                      WORLD_NAME
+            @foreach ($worlds as $world)
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="">
+                      <div class="text-sm font-medium text-gray-900">
+                        {{ $world->name }}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">This world has 6 rooms</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-lg bg-green-100 text-green-800">
-                  Circle
-                </span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                2021-12-01 15:32
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="{{url('/view')}}" class="text-indigo-600 hover:text-indigo-900 mr-2">View</a>
-                <a href="{{url('/edit')}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-              </td>
-            </tr>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">This world has <span class="font-medium">{{ $world->rooms }}</span> rooms</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-lg bg-green-100 text-green-800">
+                    {{ ucfirst($world->type) }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ $world->date }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="{{url('/view')}}" class="text-indigo-600 hover:text-indigo-900 mr-2">View</a>
+                  <a href="{{url('/edit')}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                </td>
+              </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
 </div>
+
 @endsection

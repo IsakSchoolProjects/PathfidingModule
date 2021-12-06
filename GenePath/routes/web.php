@@ -32,3 +32,7 @@ Route::get('/edit', function () {
 Route::get('/load', function () {
     return view('load');
 });
+// This is the view page
+Route::get('/view', function () {
+    return view('view');
+});

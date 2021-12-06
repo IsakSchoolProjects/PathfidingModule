@@ -7,8 +7,11 @@
     <title>Index</title>
     <link href="{{ asset('css/tailwind.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
+
+    @yield('head')
 </head>
 <body>
-    @yield('content');
+    @yield('content')
+    <script src="{{ asset('scripts/script.js')}}"></script>
 </body>
 </html>

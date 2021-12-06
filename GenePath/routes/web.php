@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// This is the landing page
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+// This is the create page
+Route::get('/create', function () {
+    return view('create');
+});
+
+// This is the edit page
+Route::get('/edit', function () {
+    return view('edit');
+});
+
+// This is the load page
+Route::get('/load', function () {
+    return view('load');
 });

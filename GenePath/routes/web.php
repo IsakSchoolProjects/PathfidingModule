@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoadController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +31,8 @@ Route::get('/edit', function () {
 
 // Shows all the worlds from the database
 Route::get('/load', [LoadController::class, 'ShowWorlds']);
+// Shows all the rooms from the database
+Route::get('/edit', [loadController::class, 'ShowRooms']);
 
 // This is the view page
 Route::get('/view', function () {

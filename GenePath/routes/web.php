@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoadController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\CreateController;
+
+>>>>>>> 58414bda64638538459ea1f0d73bc674c7f1b4e9
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +28,8 @@ Route::get('/', function () {
 Route::get('/create', function () {
     return view('create');
 });
+
+Route::post('/edit', [CreateController::class, 'create']);
 
 // This is the edit page
 Route::get('/edit', function () {

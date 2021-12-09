@@ -6,4 +6,3 @@
     <canvas id="edit" class="bg-gray-100 min-h-screen w-full"></canvas>
 </div>
 @endsection
-

@@ -9,6 +9,9 @@ class CreateController extends Controller
     public function create(Request $request)
     {
         $data = $request->all();
-        return view('edit')->with('data', $data);
+
+        
+
+        // return view('edit')->with('data', $data);
     }
 }

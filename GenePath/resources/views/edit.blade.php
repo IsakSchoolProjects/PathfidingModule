@@ -6,7 +6,7 @@
     overflow: hidden;
     }
     .tab-content {
-    max-height: 100vh;
+    max-height: 0vh;
     transition: all 0.25s;
     }
     input:checked + .tab-label .test {
@@ -87,54 +87,55 @@
                                 </svg>
                             </div>
                         </header>
-                        <div class="tab-content">
-                            <!-- <div class="pl-8 pr-8 pb-5 text-grey-darkest">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta neque corporis quae molestiae odit ea enim distinctio commodi omnis dolor!                       
-                            </div> -->
-                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mx-32">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                  <thead class="bg-gray-50">
+
+                        <div class="flex flex-col gap-4 tab-content">
+                            <div class=" overflow-hidden sm:rounded-lg mx-32 pb-8">
+                                <table class="min-w-full divide-y divide-gray-400">
+                                  <thead class="bg-gray-300">
                                     <tr>
                                       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Name
                                       </th>
                                       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Rooms
+                                        Exits
                                       </th>
                                       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Type
-                                      </th>
-                                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Date
+                                        Cost
                                       </th>
                                     </tr>
                                   </thead>
-                                  <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                      <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                          <div class="">
-                                            <div class="text-sm font-medium text-gray-900">
-                                              WORLD_NAME
+                                  <tbody class="bg-gray-300">
+                                      @foreach ($rooms as $room)
+                                      <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                          <div class="flex">
+                                            <div class="">
+                                              <div class="text-sm font-medium text-gray-900">
+                                                {{ $room->name }}
+                                              </div>
                                             </div>
                                           </div>
-                                        </div>
-                                      </td>
-                                      <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">This world has 6 rooms</div>
-                                      </td>
-                                      <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-lg bg-green-100 text-green-800">
-                                          Circle
-                                        </span>
-                                      </td>
-                                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        2021-12-01 15:32
-                                      </td>
-                                    </tr>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        @foreach (explode(",", $room->exits) as $exit)
+                                            <span class="px-2 py-1 inline-flex text-xs font-semibold rounded-full bg-gray-700 text-white">
+                                                {{ $exit }}
+                                            </span>
+                                        @endforeach
+                            
+
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 inline-flex text-xs font-semibold rounded-full bg-gray-700 text-white">
+                                                {{ $room->cost }}
+                                            </span>
+                                        </td>
+                                      </tr>
+                                      @endforeach
                                   </tbody>
                                 </table>
-                              </div
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoadController;
+use App\Http\Controllers\CreateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,8 @@ Route::get('/', function () {
 Route::get('/create', function () {
     return view('create');
 });
+
+Route::post('/edit', [CreateController::class, 'create']);
 
 // This is the edit page
 Route::get('/edit', function () {

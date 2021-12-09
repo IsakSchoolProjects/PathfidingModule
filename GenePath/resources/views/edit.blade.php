@@ -29,7 +29,9 @@
     <a href="{{url('/')}}" class="group absolute top-3 left-3 text-4xl"><i class="fas fa-arrow-circle-left text-green-300 group-hover:text-green-500"></i></a>
     <div class="flex flex-col min-h-screen">
         <div class="mx-auto py-14">
-            <h1 class="text-4xl">Edit</h1>
+            @foreach ($world as $worldName)
+            <h1 class="text-4xl">{{ $worldName->name }}</h1>
+            @endforeach
         </div>
 
         <!-- Dropdown Items Start -->
@@ -52,20 +54,64 @@
                                 </svg>
                             </div>
                         </header>
-                        <div class="flex tab-content">
-                            <div class="flex flex-row mx-auto gap-32 pb-14">
-                                <div class="flex flex-col gap-4">
-                                    <p class="mx-auto">Your WORLD</p>
-                                    <p class="text-sm mx-auto">WORLD_NAME</p>
-                                </div>
-                                <div class="flex flex-col gap-4">
-                                    <p class="mx-auto">amount of rooms</p>
-                                    <p class="mx-auto">14</p>
-                                </div>
-                                <div class="flex flex-col gap-4">
-                                    <p class="mx-auto">Amount of exits</p>
-                                    <p class="mx-auto">54</p>
-                                </div>
+                        <div class="flex flex-col gap-4 tab-content">
+                            <div class=" overflow-hidden sm:rounded-lg mx-32 pb-8">
+                                <table class="min-w-full divide-y divide-gray-400">
+                                  <thead class="bg-gray-300">
+                                    <tr>
+                                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                          world_Dsds
+                                      </th>
+                                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Type
+                                      </th>
+                                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        amount of rooms
+                                      </th>
+                                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Amount of exits
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody class="bg-gray-300">
+                                      <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                          <div class="flex">
+                                            <div class="">
+                                              <div class="text-sm font-medium text-gray-900">
+                                                World_name
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex">
+                                              <div class="">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                  world_type
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 inline-flex text-xs font-semibold rounded-full bg-gray-700 text-white">
+                                                {{ sizeof($rooms) }}
+                                            </span>                            
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 inline-flex text-xs font-semibold rounded-full bg-gray-700 text-white">
+                                                {{$total_exits = 0;}}
+                                                @foreach ($rooms as $room)
+                                                    @foreach (explode(",", $room->exits) as $exit)
+                                                        {{$total_exits++}}
+                                                    @endforeach
+                                                @endforeach
+                                                {{$total_exits}}
+                                            </span>
+                                        </td>
+                                      </tr>
+                                  </tbody>
+                                </table>
                             </div>
 
                         </div>

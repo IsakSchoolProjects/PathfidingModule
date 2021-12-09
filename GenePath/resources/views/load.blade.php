@@ -55,7 +55,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <a href="{{url('/view')}}" class="text-indigo-600 hover:text-indigo-900 mr-2">View</a>
-                  <a href="{{url('/edit')}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  <a href="{{url('/edit', [$world->id])}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                 </td>
               </tr>
             @endforeach

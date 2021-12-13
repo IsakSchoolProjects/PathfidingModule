@@ -29,9 +29,7 @@
     <a href="{{url('/')}}" class="group absolute top-3 left-3 text-4xl"><i class="fas fa-arrow-circle-left text-green-300 group-hover:text-green-500"></i></a>
     <div class="flex flex-col min-h-screen">
         <div class="mx-auto py-14">
-            @foreach ($world as $worldName)
-            <h1 class="text-4xl">{{ $worldName->name }}</h1>
-            @endforeach
+            <h1 class="text-4xl">{{ $world[0]->name }}</h1>
         </div>
 
         <!-- Dropdown Items Start -->
@@ -60,7 +58,7 @@
                                   <thead class="bg-gray-300">
                                     <tr>
                                       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                          world_Dsds
+                                          world Name
                                       </th>
                                       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Type
@@ -79,7 +77,7 @@
                                           <div class="flex">
                                             <div class="">
                                               <div class="text-sm font-medium text-gray-900">
-                                                World_name
+                                                {{ $world[0]->name }}
                                               </div>
                                             </div>
                                           </div>
@@ -87,9 +85,9 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex">
                                               <div class="">
-                                                <div class="text-sm font-medium text-gray-900">
-                                                  world_type
-                                                </div>
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-lg bg-green-100 text-green-800">
+                                                  {{ ucfirst($world[0]->type) }}
+                                                </span>
                                               </div>
                                             </div>
                                           </td>
@@ -100,12 +98,17 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 py-1 inline-flex text-xs font-semibold rounded-full bg-gray-700 text-white">
-                                                {{$total_exits = 0;}}
+                                                @php
+                                                  $total_exits = 0;  
+                                                @endphp
                                                 @foreach ($rooms as $room)
                                                     @foreach (explode(",", $room->exits) as $exit)
-                                                        {{$total_exits++}}
+                                                    @php
+                                                        $total_exits++
+                                                    @endphp
                                                     @endforeach
                                                 @endforeach
+
                                                 {{$total_exits}}
                                             </span>
                                         </td>
@@ -249,7 +252,7 @@
               </div>
         </div>
     </div>
-    <canvas id="edit" class="bg-green-600 min-h-screen w-full"></canvas> <!-- Canvas have a h of screen. width of full makes it so its not creating a scrollbar.-->
+    <canvas id="edit" class="bg-gray-400 min-h-screen w-full"></canvas> <!-- Canvas have a h of screen. width of full makes it so its not creating a scrollbar.-->
 </div>
 
 @endsection

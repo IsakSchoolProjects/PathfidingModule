@@ -30,8 +30,8 @@ class LoadController extends Controller
         
         $rooms = DB::select(DB::raw("SELECT rooms.id, room_name AS name, exits, cost FROM rooms LEFT JOIN worlds ON worlds.id = rooms.world_id WHERE worlds.id = $worldId"));
         // Gets worldName where id = worldId
-        $world = DB::select(DB::raw("SELECT world_name AS name FROM `worlds` WHERE id = $id"));
-
+        $world = DB::select(DB::raw("SELECT world_name AS name, world_type AS type FROM `worlds` WHERE id = $id"));
+        
         return view('edit')->with('rooms', $rooms)->with('world', $world);
     }
 }

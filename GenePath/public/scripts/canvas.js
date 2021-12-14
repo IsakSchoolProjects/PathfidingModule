@@ -8,7 +8,7 @@ canvas.height = window.innerHeight;
 // context.moveTo(200,20);
 // context.lineTo(200,1000);
 // context.stroke();
-context.fillRect(0,0,250,250);
+
 let rooms = [
     {
         "name": "room1",
@@ -59,7 +59,23 @@ canvas.addEventListener("click", (event) => {
     if(isWithinCoordinates(event.clientX, event.clientY,0,0,250,250))
     {
         console.log('debug');
+
     }
 });
+
+// function generateRoom()
+// {
+//     let x = 10;
+//     let y = 10;
+//     let room = {
+//         content: context.fillRect(x,y,250,250),
+//         coordinates: [x,y]
+//     } 
+
+//     room.content;
+//     console.log(room.coordinates)
+// }
+
+// generateRoom();
 
 

@@ -1,44 +1,97 @@
 // Room generator
-class room{
-    constructor(id)
-    {
-        this.id = id;
-        this.name = roomName();
-        this.exits = [];
-    }
 
-    nameGen(){
-        return `A ${array1[Math.floor(Math.random()*array1.length)]} ${array2[Math.floor(Math.random()*array1.length)]} of ${array3[Math.floor(Math.random()*array1.length)]}`; 
-    }
-};
+// We need to store the Coordinates for each rooms and the we need to paint a representation of that room, 
+// That's why we have seperate variables for the painting of the room on the canvas and seperate for the coordinates for the room itself
 
 class world{
     constructor(name, amount)
     {
         this.name = name;
         this.rooms = [];
+
+        // Variables for the painting the rooms on the canvas 
+        const w = 30; //! This is the width of the rooms. MUST be the same as h
+        const h = 30; //! This is the height of the rooms. MUST be the same as w
+        const spaceBetweenY = 60; //* this is the space between the rooms, MUST be twice the W or H
+        
+        
+        let x = 30; //! Don't change! same as W
+        let y = 30; //! Don't change! same as h
+
+        let currentWidth = 15; //* Should be half as x. Counting the current width and checks if it can fit a room or need to change row 
+
+        // Variables for drawing the line between the rooms
+        const startX = 30; //* MUST be the same as x. Resetting X for the canvas
+        const offsetStartX = 30; //! This MUST be same as w
+        const offsetEndX = 60; //! This MUST be twice as much as offsetStartX
+        const offsetY = 15; //* This MUST be the half of h
+
+        // Variables for the rooms coordinates
+        let trueX = 45; // This is the x-coordinate for the each room itself. //! MUST be 1.5x X
+        let trueY = 45; //This is the y-coordinate for the each room itself. //! MUST be 1.5x Y
+
         for(let i=0; i<amount; i++)
         {
-            // roomNames[i] = new room(i,1);
-            // this.rooms.push(roomNames[i]);
-            let r = new room(i)
+            let r = new room(i, trueX, trueY)
+
+            // Exits
             if(i==0)
             {
                 r.exits.push(i+1);
+
+                // Draws the path between each rooms offsetting for the center coordinate
+                context.beginPath();
+                context.moveTo(x+offsetStartX, y+offsetY); // offset for rooms width 
+                context.lineTo(x+offsetEndX, y+offsetY); // 
+                context.stroke();
+
             }else if(i==amount-1){
                 r.exits.push(i-1);
             }else{
                 r.exits.push(i-1);
                 r.exits.push(i+1);
+
+                // Draws the path between each rooms offsetting for the center coordinate
+                context.beginPath();
+                context.moveTo(x+offsetStartX, y+offsetY);
+                context.lineTo(x+offsetEndX, y+offsetY);
+                context.stroke();
             }
             this.rooms.push(r);
-        }
-    }
 
-    GenerateWorld(){
+            // Painting to the canvas
+            context.fillRect(x,y, w, h);
+            x += w*2; // The coordinate for the next room For the canvas
+            trueX+=w*2 // The true coordinate for the room itself
+            currentWidth += w*2;
+
+            // If the width is more than window width start painting on the next row
+            if(currentWidth+w >= window.innerWidth)
+            {
+                x = startX;
+                y += spaceBetweenY;
+                trueY += spaceBetweenY;
+                currentWidth = offsetY;
+            }
+        }
         console.log(this.rooms);
     }
 }
+
+class room{
+    constructor(id, x, y)
+    {
+        this.id = id;
+        this.name = roomName();
+        this.exits = [];
+        this.x = x;
+        this.y = y;
+    }
+
+    nameGen(){
+        return `A ${array1[Math.floor(Math.random()*array1.length)]} ${array2[Math.floor(Math.random()*array1.length)]} of ${array3[Math.floor(Math.random()*array1.length)]}`; 
+    }
+};
 
 let array1 = [
     "earie",
@@ -83,9 +136,8 @@ let roomName = function nameGen(){
     return `A ${array1[Math.floor(Math.random()*array1.length)]} ${array2[Math.floor(Math.random()*array1.length)]} of ${array3[Math.floor(Math.random()*array1.length)]}`; 
 };
 
-let myWorld = new world('sweden', 4);
-myWorld.GenerateWorld();
 
+let stringWorld = new world('sewe', 200);
 
 
 // Rectangular world
@@ -125,15 +177,11 @@ class squareWorld{
             r.exits = temp;
             this.rooms.push(r)
         }
-    }
 
-    GenerateSquareWorld(){
         console.log(this.rooms);
     }
 }
-let mySquareWorld = new squareWorld('sweden',4);
-// console.log(myWorld);
-mySquareWorld.GenerateSquareWorld();
+// let mySquareWorld = new squareWorld('sweden',4);
 
 // Circular world
 
@@ -144,8 +192,6 @@ class circularWorld{
         this.rooms = [];
         for(let i=0; i<amount; i++)
         {
-            // roomNames[i] = new room(i,1);
-            // this.rooms.push(roomNames[i]);
             let r = new room(i)
             if(i==0)
             {
@@ -160,15 +206,11 @@ class circularWorld{
         }
         this.rooms[amount-1].exits.push(0);
         this.rooms[0].exits.push(amount-1);
-    }
-
-    GenerateWorld(){
         console.log(this.rooms);
     }
 }
 
-let myWorld = new circularWorld('sweden', 10);
-myWorld.GenerateWorld();
+// let myCircularWorld = new circularWorld('sweden', 10);
 
 
 // SPF - Dans pathfinding som han lade ut

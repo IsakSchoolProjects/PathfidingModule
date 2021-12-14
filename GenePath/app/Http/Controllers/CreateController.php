@@ -10,8 +10,6 @@ class CreateController extends Controller
     {
         $data = $request->all();
 
-        
-
-        // return view('edit')->with('data', $data);
+        return view('view')->with('data', $data);
     }
 }

@@ -26,7 +26,7 @@ Route::get('/create', function () {
     return view('create');
 });
 
-Route::post('/edit', [CreateController::class, 'create']);
+Route::post('/create/insert', [CreateController::class, 'create']);
 
 // This is the edit page
 // Route::get('/edit{id}', function () {

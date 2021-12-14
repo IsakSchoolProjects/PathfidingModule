@@ -8,10 +8,13 @@
     <link href="{{ asset('css/tailwind.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @yield('head')
 </head>
 <body>
     @yield('content')
     <script src="{{ asset('scripts/script.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

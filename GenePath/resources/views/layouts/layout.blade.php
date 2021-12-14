@@ -16,5 +16,7 @@
     @yield('content')
     <script src="{{ asset('scripts/script.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('scripts/canvas.js')}}"></script>
+    <script src="{{ asset('scripts/createRooms.js')}}"></script>
 </body>
 </html>

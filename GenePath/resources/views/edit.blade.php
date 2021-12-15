@@ -375,6 +375,11 @@
 
   let MyCircularWorld = new CircularWorld(data.length);
 
+  let RoomConfig = {
+    start: null,
+    end: null
+  }
+
   // Remove default right-click Chrome menu
   canvas.addEventListener("contextmenu", e => e.preventDefault());
 
@@ -398,7 +403,15 @@
             MyCircularWorld.rooms[i].y + (MyCircularWorld.h / 2)
         ))
         {
-            console.log('Start connection from', MyCircularWorld.rooms[i].id);
+            // console.log('Start connection from', MyCircularWorld.rooms[i].id);
+
+            // Check if no selection has been done before
+            if(!RoomConfig.start && !RoomConfig.end)
+            {
+              RoomConfig.start = MyCircularWorld.rooms[i].id;
+
+              console.log('Choose room as start', RoomConfig.start);
+            }
         }
       }
     }
@@ -421,7 +434,27 @@
             MyCircularWorld.rooms[i].y + (MyCircularWorld.h / 2)
         ))
         {
-            console.log('End connection on', MyCircularWorld.rooms[i].id);
+          // console.log('End connection on', MyCircularWorld.rooms[i].id);
+
+          // Check if a start selection has been done before
+          if(RoomConfig.start && !RoomConfig.end)
+          {
+            // Check if choosing end the same as start
+            if(RoomConfig.start !== MyCircularWorld.rooms[i].id)
+            {
+              // Check if exit already exists
+              MyCircularWorld.rooms[i].exits.forEach(exit => {
+                
+              });
+
+              if()
+              {
+                RoomConfig.end = MyCircularWorld.rooms[i].id;
+
+                console.log('Choose room as end', RoomConfig.end);
+              }
+            }
+          }
         }
       }
     }

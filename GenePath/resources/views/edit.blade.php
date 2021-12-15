@@ -255,6 +255,10 @@
     <canvas id="edit" class="bg-gray-400 min-h-screen w-full"></canvas> <!-- Canvas have a h of screen. width of full makes it so its not creating a scrollbar.-->
 </div>
 <script>
+  // Room generator
+
+  // We need to store the Coordinates for each rooms and the we need to paint a representation of that room,
+  // That's why we have seperate variables for the painting of the room on the canvas and seperate for the coordinates for the room itself
   let canvas = document.getElementById("edit");
   let context = canvas.getContext('2d');
   let worldRooms = {!!json_encode($rooms)!!};
@@ -262,36 +266,14 @@
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  console.log(worldRooms.length);
-  function isWithinCoordinates(mx,my,x1,y1,x2,y2)
-  { 
-    return (mx>x1 && my>y1 && mx<x2 && my<y2);
-  }
-
-  canvas.addEventListener("click", (event) => {
-    console.log(event.clientX, event.clientY);
-    alert(`${event.clientX} y ${event.clientY}`)
-    if(isWithinCoordinates(event.clientX, event.clientY,0,0,250,250))
-    {
-        console.log('debug');
-    }
-  });
-
-  // Room generator
-
-  // We need to store the Coordinates for each rooms and the we need to paint a representation of that room,
-  // That's why we have seperate variables for the painting of the room on the canvas and seperate for the coordinates for the room itself
-
-  
-
   class circularWorld {
     constructor(amount) {
         // this.name = ;
         this.rooms = [];
 
         // Variables for the painting the rooms on the canvas
-        const w = 30; //! This is the width of the rooms. MUST be the same as h
-        const h = 30; //! This is the height of the rooms. MUST be the same as w
+        this.w = 30; //! This is the width of the rooms. MUST be the same as h
+        this.h = 30; //! This is the height of the rooms. MUST be the same as w
         const spaceBetweenY = 60; //* this is the space between the rooms, MUST be twice the W or H
 
         let x = 30; //! Don't change! same as W
@@ -308,9 +290,10 @@
         // Variables for the rooms coordinates
         let trueX = 45; // This is the x-coordinate for the each room itself. //! MUST be 1.5x X
         let trueY = 45; //This is the y-coordinate for the each room itself. //! MUST be 1.5x Y
+        
 
         for (let i = 0; i < amount; i++) {
-            let r = new room(worldRooms[i].name, worldRooms[i].id, trueX, trueY, worldRooms[i].cost);
+            let r = new room(worldRooms[i].name, worldRooms[i].id, worldRooms[i].cost, trueX, trueY);
             r.exits.push(worldRooms[i].exits)
             if (i == 0) {
                 // r.exits.push(i + 1);
@@ -321,7 +304,16 @@
                 context.lineTo(x + offsetEndX, y + offsetY); //
                 context.stroke();
             } else if (i == amount - 1) {
-                // r.exits.push(i - 1);
+                // // r.exits.push(i - 1);
+                context.beginPath();
+                context.moveTo(x+(offsetStartX/2), y+offsetY);
+                context.lineTo(x+(offsetStartX/2), y+offsetY+(spaceBetweenY/2));
+                console.log(x);
+                console.log(currentWidth);
+                context.lineTo(x-currentWidth+this.w, y+offsetY+(spaceBetweenY/2))
+                context.lineTo(x-currentWidth+this.w, y+offsetY);
+                context.stroke();
+                // console.log(x, y+offsetY);
             } else {
                 // r.exits.push(i - 1);
                 // r.exits.push(i + 1);
@@ -333,13 +325,14 @@
             this.rooms.push(r);
             
             // Painting to the canvas
-            context.fillRect(x, y, w, h);
-            x += w * 2; // The coordinate for the next room For the canvas
-            trueX += w * 2; // The true coordinate for the room itself
-            currentWidth += w * 2;
+            context.fillRect(x, y, this.w, this.h);
+            x += this.w * 2; // The coordinate for the next room For the canvas
+            trueX += this.w * 2; // The true X1-coordinate for the room itself
+            
+            currentWidth += this.w * 2;
 
             // If the width is more than window width start painting on the next row
-            if (currentWidth + w >= window.innerWidth) {
+            if (currentWidth + this.w >= window.innerWidth) {
                 x = startX;
                 y += spaceBetweenY;
                 trueY += spaceBetweenY;
@@ -349,18 +342,16 @@
 
         // this.rooms[amount - 1].exits.push(0);
         // this.rooms[0].exits.push(amount - 1);
-        console.log(this.rooms);
-        
     }
   }
 
   class room {
-    constructor(name,id, x, y, cost) {
+    constructor(name,id, cost, x, y) {
         this.name = name;
         this.id = id;
+        this.cost = cost;
         this.x = x;
         this.y = y;
-        this.cost = cost;
         this.exits = [];
     }
 
@@ -416,9 +407,50 @@
       } of ${array3[Math.floor(Math.random() * array1.length)]}`;
   };
 
-  // let stringWorld = new world("sewe", 2);
   let circularworld = new circularWorld(worldRooms.length);
-  // let circularworld = new circularWorld(3);
-  console.log(worldRooms);
+
+  function isWithinCoordinates(mx,my,x1,y1,x2,y2)
+  { 
+    return (mx>x1 && my>y1 && mx<x2 && my<y2);
+  }
+
+  window.addEventListener("contextmenu", e => e.preventDefault());
+  
+  // canvas.addEventListener("click", (event) => {
+  //   console.log(event.clientX, event.clientY);
+
+  //   for(let i = 0; i<circularworld.rooms.length; i++)
+  //   {
+  //     if(isWithinCoordinates(event.clientX, event.clientY,(circularworld.rooms[i].x-(circularworld.w/2)),(circularworld.rooms[i].y-(circularworld.h/2)),(circularworld.rooms[i].x+(circularworld.w/2)),(circularworld.rooms[i].y+(circularworld.h/2))))
+  //     {
+  //         console.log(circularworld.rooms[i]);
+  //     }
+  //   }
+  // });
+
+  canvas.addEventListener("mousedown", (event) =>{
+
+    if(event.buttons === 1)
+    {
+      for(let i = 0; i<circularworld.rooms.length; i++)
+      {
+        if(isWithinCoordinates(event.clientX, event.clientY,(circularworld.rooms[i].x-(circularworld.w/2)),(circularworld.rooms[i].y-(circularworld.h/2)),(circularworld.rooms[i].x+(circularworld.w/2)),(circularworld.rooms[i].y+(circularworld.h/2))))
+        {
+            console.log('start connection', circularworld.rooms[i].id);
+        }
+      }
+    } else if(event.buttons === 2)
+    {
+      for(let i = 0; i<circularworld.rooms.length; i++)
+      {
+        if(isWithinCoordinates(event.clientX, event.clientY,(circularworld.rooms[i].x-(circularworld.w/2)),(circularworld.rooms[i].y-(circularworld.h/2)),(circularworld.rooms[i].x+(circularworld.w/2)),(circularworld.rooms[i].y+(circularworld.h/2))))
+        {
+            console.log('end connection', circularworld.rooms[i].id);
+        }
+      }
+    }
+  });
+  
+  
 </script>
 @endsection

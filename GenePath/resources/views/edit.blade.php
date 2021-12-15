@@ -255,4 +255,7 @@
     <canvas id="edit" class="bg-gray-400 min-h-screen w-full"></canvas> <!-- Canvas have a h of screen. width of full makes it so its not creating a scrollbar.-->
 </div>
 
+<script src="{{ asset('scripts/canvas.js')}}"></script>
+<script src="{{ asset('scripts/createRooms.js')}}"></script>
+
 @endsection

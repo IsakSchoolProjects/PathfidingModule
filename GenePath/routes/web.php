@@ -26,12 +26,8 @@ Route::get('/create', function () {
     return view('create');
 });
 
-Route::post('/create/insert', [CreateController::class, 'create']);
-
-// This is the edit page
-// Route::get('/edit{id}', function () {
-//     return view('edit');
-// });
+// Recieve the create-form inputs
+Route::post('/create/insert/', [CreateController::class, 'create'])->name('create-new-world');;
 
 // Shows all the worlds from the database
 Route::get('/load', [LoadController::class, 'ShowWorlds']);

@@ -257,6 +257,7 @@
 <script>
   // Room generator
 
+<<<<<<< HEAD
   // We need to store the Coordinates for each rooms and the we need to paint a representation of that room,
   // That's why we have seperate variables for the painting of the room on the canvas and seperate for the coordinates for the room itself
   let canvas = document.getElementById("edit");
@@ -453,4 +454,9 @@
   
   
 </script>
+=======
+<script src="{{ asset('scripts/canvas.js')}}"></script>
+<script src="{{ asset('scripts/createRooms.js')}}"></script>
+
+>>>>>>> 676238a84ce10920ec77897c5b1482228e639d35
 @endsection

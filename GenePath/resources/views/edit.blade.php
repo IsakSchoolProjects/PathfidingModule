@@ -408,9 +408,9 @@
             // Check if no selection has been done before
             if(!RoomConfig.start && !RoomConfig.end)
             {
-              RoomConfig.start = MyCircularWorld.rooms[i].id;
+              RoomConfig.start = MyCircularWorld.rooms[i];
 
-              console.log('Choose room as start', RoomConfig.start);
+              console.log('Chose room as start', RoomConfig.start);
             }
         }
       }
@@ -433,27 +433,29 @@
             MyCircularWorld.rooms[i].x + (MyCircularWorld.w / 2),
             MyCircularWorld.rooms[i].y + (MyCircularWorld.h / 2)
         ))
-        {
-          // console.log('End connection on', MyCircularWorld.rooms[i].id);
-
+        { 
           // Check if a start selection has been done before
           if(RoomConfig.start && !RoomConfig.end)
           {
+            console.log(RoomConfig.start.exits[0].split(","));
             // Check if choosing end the same as start
             if(RoomConfig.start !== MyCircularWorld.rooms[i].id)
             {
               // Check if exit already exists
-              MyCircularWorld.rooms[i].exits.forEach(exit => {
-                
-              });
+              if(RoomConfig.start.exits[0].split(",").includes(MyCircularWorld.rooms[i].id.toString()))
+              {
+                console.log(MyCircularWorld.rooms.indexOf(MyCircularWorld.rooms[i].id).exits); 
 
-              if()
+                console.log('remove exits from both rooms');
+
+              } else
               {
                 RoomConfig.end = MyCircularWorld.rooms[i].id;
 
-                console.log('Choose room as end', RoomConfig.end);
+                console.log('Chose room as end', RoomConfig.end);
               }
             }
+
           }
         }
       }

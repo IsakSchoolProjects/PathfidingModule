@@ -148,9 +148,6 @@
                                       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Exits
                                       </th>
-                                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Cost
-                                      </th>
                                     </tr>
                                   </thead>
                                   <tbody class="bg-gray-300">
@@ -173,11 +170,6 @@
                                         @endforeach
                             
 
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 py-1 inline-flex text-xs font-semibold rounded-full bg-gray-700 text-white">
-                                                {{ $room->cost }}
-                                            </span>
                                         </td>
                                       </tr>
                                       @endforeach
@@ -269,7 +261,8 @@
    *  Classes
   */
 
-  class CircularWorld {
+  class CircularWorld
+  {
     constructor(amount)
     {
         // this.name = ;
@@ -298,7 +291,7 @@
 
         for (let i = 0; i < amount; i++)
         {
-            let room = new Room(data[i].name, data[i].id, data[i].cost, this.trueX, this.trueY);
+            let room = new Room(data[i].name, data[i].room_id, this.trueX, this.trueY);
 
             // Push correct exits
             for(let j = 0; j < data[i].exits.split(',').length; j++)
@@ -361,12 +354,12 @@
     }
   }
 
-  class Room {
-    constructor(name, id, cost, x, y)
+  class Room
+  {
+    constructor(name, id, x, y)
     {
         this.name = name;
         this.id = id;
-        this.cost = cost;
         this.x = x;
         this.y = y;
         this.exits = [];
@@ -407,8 +400,6 @@
             MyCircularWorld.rooms[i].y + (MyCircularWorld.h / 2)
         ))
         {
-            // console.log('Start connection from', MyCircularWorld.rooms[i].id);
-
             // Check if no selection has been done before
             if(!RoomConfig.start && !RoomConfig.end)
             {
@@ -462,8 +453,6 @@
 
                 // Remove the end exit from the end room
                 EndRoom.exits = EndRoom.exits.filter(exit => exit !== RoomConfig.start.id);
-
-                console.log(EndRoom);
 
                 // Remove the exit line
                 context.beginPath();

@@ -28,7 +28,7 @@ class LoadController extends Controller
     {
         $worldId = (int)$id;
         
-        $rooms = DB::select(DB::raw("SELECT rooms.id, room_name AS name, exits, cost FROM rooms LEFT JOIN worlds ON worlds.id = rooms.world_id WHERE worlds.id = $worldId"));
+        $rooms = DB::select(DB::raw("SELECT rooms.id, rooms.room_id, rooms.room_name AS name, rooms.exits FROM rooms LEFT JOIN worlds ON worlds.id = rooms.world_id WHERE worlds.id = $worldId"));
         // Gets worldName where id = worldId
         $world = DB::select(DB::raw("SELECT world_name AS name, world_type AS type FROM `worlds` WHERE id = $id"));
         

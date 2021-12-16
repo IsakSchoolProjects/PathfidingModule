@@ -462,6 +462,26 @@
 
                 // Remove the end exit from the end room
                 EndRoom.exits = EndRoom.exits.filter(exit => exit !== RoomConfig.start.id);
+
+                console.log(EndRoom);
+
+                // Remove the exit line
+                context.beginPath();
+
+                context.strokeStyle = 'white';
+
+                if(EndRoom.x > StartRoom.x)
+                {
+                  context.moveTo(EndRoom.x - 15, EndRoom.y);
+                  context.lineTo(StartRoom.x + 15, StartRoom.y);
+                }
+                else
+                {
+                  context.moveTo(EndRoom.x + 15, EndRoom.y);
+                  context.lineTo(StartRoom.x - 15, StartRoom.y);
+                }
+
+                context.stroke();
               }
               else
               {
@@ -480,6 +500,24 @@
 
                 // Add the start exit to the end room
                 EndRoom.exits.push(RoomConfig.start.id);
+
+                // Add the exit line
+                context.beginPath();
+
+                context.strokeStyle = 'black';
+
+                if(EndRoom.x > StartRoom.x)
+                {
+                  context.moveTo(EndRoom.x - 15, EndRoom.y);
+                  context.lineTo(StartRoom.x + 15, StartRoom.y);
+                }
+                else
+                {
+                  context.moveTo(EndRoom.x + 15, EndRoom.y);
+                  context.lineTo(StartRoom.x - 15, StartRoom.y);
+                }
+
+                context.stroke();
               }
             }
 

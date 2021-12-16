@@ -300,7 +300,11 @@
         {
             let room = new Room(data[i].name, data[i].id, data[i].cost, this.trueX, this.trueY);
 
-            room.exits.push(data[i].exits);
+            // Push correct exits
+            for(let j = 0; j < data[i].exits.split(',').length; j++)
+            {
+              room.exits.push(parseInt(data[i].exits.split(',')[j]));
+            }
 
             if (i == 0)
             {
@@ -409,8 +413,6 @@
             if(!RoomConfig.start && !RoomConfig.end)
             {
               RoomConfig.start = MyCircularWorld.rooms[i];
-
-              console.log('Chose room as start', RoomConfig.start);
             }
         }
       }
@@ -437,25 +439,58 @@
           // Check if a start selection has been done before
           if(RoomConfig.start && !RoomConfig.end)
           {
-            console.log(RoomConfig.start.exits[0].split(","));
             // Check if choosing end the same as start
             if(RoomConfig.start !== MyCircularWorld.rooms[i].id)
             {
+              RoomConfig.end = MyCircularWorld.rooms[i];
+
               // Check if exit already exists
-              if(RoomConfig.start.exits[0].split(",").includes(MyCircularWorld.rooms[i].id.toString()))
+              if(RoomConfig.start.exits.includes(RoomConfig.end.id))
               {
-                console.log(MyCircularWorld.rooms.indexOf(MyCircularWorld.rooms[i].id).exits); 
+                // Find the start room
+                let StartRoom = MyCircularWorld.rooms.filter(room => {
+                  return room.id === RoomConfig.start.id
+                })[0];
 
-                console.log('remove exits from both rooms');
+                // Remove the end exit from the start room
+                StartRoom.exits = StartRoom.exits.filter(exit => exit !== RoomConfig.end.id);
 
-              } else
+                // Find the end room
+                let EndRoom = MyCircularWorld.rooms.filter(room => {
+                  return room.id === RoomConfig.end.id
+                })[0];
+
+                // Remove the end exit from the end room
+                EndRoom.exits = EndRoom.exits.filter(exit => exit !== RoomConfig.start.id);
+              }
+              else
               {
-                RoomConfig.end = MyCircularWorld.rooms[i].id;
+                // Find the start room
+                let StartRoom = MyCircularWorld.rooms.filter(room => {
+                  return room.id === RoomConfig.start.id
+                })[0];
 
-                console.log('Chose room as end', RoomConfig.end);
+                // Add the end exit to the start room
+                StartRoom.exits.push(RoomConfig.end.id);
+
+                // Find the end room
+                let EndRoom = MyCircularWorld.rooms.filter(room => {
+                  return room.id === RoomConfig.end.id
+                })[0];
+
+                // Add the start exit to the end room
+                EndRoom.exits.push(RoomConfig.start.id);
               }
             }
 
+            // Reset to create new connection
+            if(RoomConfig.start && RoomConfig.end)
+            {
+              RoomConfig.start = null;
+              RoomConfig.end = null;
+            }
+
+            console.log(MyCircularWorld.rooms);
           }
         }
       }

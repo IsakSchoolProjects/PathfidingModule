@@ -243,7 +243,14 @@
                 <p>Saved Successfully</p>
               </div>
         </div>
+        <div id="infoBox" class="fixed bottom-11 right-10 z-100 max-w-md py-4 px-8 bg-white shadow-lg rounded-lg hidden">
+          <div>
+            <h4 class="text-gray-800 text-2xl font-semibold"></h4>
+            <p class="mt-2 text-gray-600"></p>
+          </div>
+        </div>
     </div>
+
     <canvas class="bg-gray-400 min-h-screen w-full"></canvas> <!-- Canvas have a h of screen. width of full makes it so its not creating a scrollbar.-->
 </div>
 
@@ -379,6 +386,13 @@
 
   // Remove default right-click Chrome menu
   canvas.addEventListener("contextmenu", e => e.preventDefault());
+
+  document.body.onmousedown = function(e) {
+    if(e.button == 1) {
+        e.preventDefault();
+        return false;
+    }
+}
 
   // Detect on mouse-click when selecting a room
   canvas.addEventListener("mousedown", (e) =>{
@@ -519,6 +533,33 @@
 
             console.log(MyCircularWorld.rooms);
           }
+        }
+      }
+    }
+    else if(e.buttons == 4)
+    {
+      console.log('debug');
+      for(let i = 0; i < MyCircularWorld.rooms.length; i++)
+      {
+        if(IsWithinCoordinates(
+            // Mouse X when clicked
+            e.clientX,
+            // Mouse Y when clicked
+            e.clientY,
+            // Get top left corner
+            MyCircularWorld.rooms[i].x - (MyCircularWorld.w / 2),
+            MyCircularWorld.rooms[i].y - (MyCircularWorld.h / 2),
+            // Get bottom right corner
+            MyCircularWorld.rooms[i].x + (MyCircularWorld.w / 2),
+            MyCircularWorld.rooms[i].y + (MyCircularWorld.h / 2)
+        ))
+        {
+          document.getElementById("infoBox").classList.toggle("hidden");
+          // console.log(data[i].name);
+          // console.log(data[i].exits);
+          // Selected room name
+          document.querySelectorAll("#infoBox > div > h4")[0].innerHTML = data[i].name;
+          document.querySelectorAll("#infoBox > div > p")[0].innerHTML = data[i].exits;
         }
       }
     }
